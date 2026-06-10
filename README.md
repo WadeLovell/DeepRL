@@ -21,8 +21,19 @@ The DQN agent, as well as C51 and QR-DQN, has an asynchronous actor for data gen
 Using 1 RTX 2080 Ti and 3 threads, the DQN agent runs for 10M steps (40M frames, 2.5M gradient updates) for Breakout within 6 hours.
 
 # Dependency
-* PyTorch v1.5.1
-* See ```Dockerfile``` and ```requirements.txt``` for more details
+* Python >= 3.9
+* PyTorch >= 2.2
+* Gymnasium (replaces the original OpenAI Gym / Baselines stack)
+
+```bash
+pip install -r requirements.txt
+pip install -e .
+```
+
+Atari games are provided by ```ale-py``` (installed via ```requirements.txt```, ROMs included).
+For MuJoCo continuous-control tasks (e.g. ```Hopper-v4```), additionally run
+```pip install "gymnasium[mujoco]"```. The legacy Docker / mujoco-py / roboschool
+setup is no longer required.
 
 # Usage
 

@@ -144,7 +144,7 @@ class Plotter:
                 log_dirs = self.filter_log_dirs(pattern='.*%s.*%s' % (game, p), **kwargs)
                 x, y = self.load_results(log_dirs, **kwargs)
                 if kwargs['downsample']:
-                    indices = np.linspace(0, len(x) - 1, kwargs['downsample']).astype(np.int)
+                    indices = np.linspace(0, len(x) - 1, kwargs['downsample']).astype(int)
                     x = x[indices]
                     y = y[:, indices]
                 if kwargs['agg'] == 'mean':

@@ -5,7 +5,29 @@
 #######################################################################
 import numpy as np
 import torch
-from baselines.common.running_mean_std import RunningMeanStd
+
+
+# adapted from baselines.common.running_mean_std
+class RunningMeanStd:
+    def __init__(self, epsilon=1e-4, shape=()):
+        self.mean = np.zeros(shape, 'float64')
+        self.var = np.ones(shape, 'float64')
+        self.count = epsilon
+
+    def update(self, x):
+        batch_mean = np.mean(x, axis=0)
+        batch_var = np.var(x, axis=0)
+        batch_count = x.shape[0]
+
+        delta = batch_mean - self.mean
+        tot_count = self.count + batch_count
+
+        self.mean = self.mean + delta * batch_count / tot_count
+        m_a = self.var * self.count
+        m_b = batch_var * batch_count
+        m_2 = m_a + m_b + np.square(delta) * self.count * batch_count / tot_count
+        self.var = m_2 / tot_count
+        self.count = tot_count
 
 
 class BaseNormalizer:
